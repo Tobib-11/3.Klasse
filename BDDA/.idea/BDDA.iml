@@ -3,8 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv_bdda" />
     </content>
-    <orderEntry type="jdk" jdkName="~\OneDrive - HTL Dornbirn\schule\HTL_Dornbirn_2024-2029\3.Klasse_26-27\Github\BDDA\.venv" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="~\OneDrive - HTL Dornbirn\schule\HTL_Dornbirn_2024-2029\3.Klasse_26-27\3.Klasse\BDDA\.venv_bdda" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

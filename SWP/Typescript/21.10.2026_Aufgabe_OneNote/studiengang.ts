@@ -1,12 +1,12 @@
-import { Student } from "./student.ts"; 
+import { Student } from "./student.ts";
 
-export class uni {
+export class StudienGang {
     private _titel: string = "";
     private _regelzeit: number = 0;
-    private _abschluss: string = "";
+    private _abschluss: number = 0;
     private _studenten: Student[] = [];
 
-    constructor(titel: string, regelzeit: number, abschluss: string) {
+    constructor(titel: string, regelzeit: number, abschluss: number) {
         this._regelzeit = regelzeit;
         this._abschluss = abschluss;
         this._titel = titel;
@@ -28,19 +28,28 @@ export class uni {
         this._titel = value;
     }
 
-    get abschluss(): string {
+    get abschluss(): number {
         return this._abschluss;
     }
 
-    set abschluss(value: string) {
+    set abschluss(value: number) {
         this._abschluss = value;
     }
-
+    addStudent(student: Student): void {
+        this._studenten.push(student);
+    }
     printdata() {
-        console.log("Student ");
-        console.log("Titel: " + this._titel);
-        console.log("Regelzeit: " + this._regelzeit);
-        console.log("Abschluss: " + this._abschluss);
-        console.log("---------------");
+        console.log("\n=== STUDIENGANG ==="); // Überschrift mit Abständen
+        console.log(`Titel:        ${this._titel}`);
+        console.log(`Regelzeit:    ${this._regelzeit} Semester`);
+        console.log(`Abschluss:    ${this._abschluss}`);
+        console.log("\n--- Studenten ---"); // Klare Trennung
+
+        // Studenten mit Einrückung und Nummerierung ausgeben
+        for (let i = 0; i < this._studenten.length; i++) {
+            console.log(`\n  ${i + 1}. Student:`);
+            this._studenten[i].printdata(); // Annahme: Student.printdata() gibt Name/Note/Matr.-Nr. aus
+        }
+        console.log("\n===================\n"); // Doppelte Trennlinie für bessere Lesbarkeit
     }
 }
