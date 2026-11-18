@@ -13,7 +13,7 @@ export class StudienGang {
         this._abschluss = abschluss;
         this._titel = titel;
     }
-
+    
     get regelzeit(): number {
         return this._regelzeit;
     }
@@ -43,25 +43,51 @@ export class StudienGang {
     addUni(uni: Uni): void {
         this._unis.push(uni);
     }
+    //vo ki
+    get studenten(): Student[] {
+    return this._studenten;
+}
+
+get unis(): Uni[] {
+    return this._unis;
+}
 
     printdata() {
-        console.log("\n=== STUDIENGANG ===");
-        console.log(`Titel: ${this._titel}`);
-        console.log(`Regelzeit: ${this._regelzeit} Semester`);
-        console.log(`Abschluss: ${this._abschluss}`);
-        console.log("===================\n");
+    console.log("\n╔══════════════════════════════════════════╗");
+    console.log("║              STUDIENGANG                 ║");
+    console.log("╚══════════════════════════════════════════╝");
 
-        // --- Unis ausgeben ---
-        console.log("\n=== Universitäten ===");
-        for (let i = 0; i < this._unis.length; i++) {
-            this._unis[i].printdata();
-        }
-        console.log("===================\n");
+    console.log(`Titel:      ${this._titel}`);
+    console.log(`Regelzeit:  ${this._regelzeit} Semester`);
+    console.log(`Abschluss:  ${this._abschluss}`);
 
-        // --- Studenten ausgeben (NUR EINMAL!) ---
-        for (let i = 0; i < this._studenten.length; i++) {
-            this._studenten[i].printdata();
+    console.log("\nUniversität(en):");
+
+    if (this._unis.length === 0) {
+        console.log("  Keine Universität zugeordnet.");
+    } else {
+        // Doppelte Unis anhand ihres Namens ausblenden
+        const eindeutigeUnis = [
+            ...new Map(this._unis.map((uni) => [uni.nameUni, uni])).values(),
+        ];
+
+        for (const uni of eindeutigeUnis) {
+            console.log(`  • ${uni.nameUni} – ${uni.standort} (gegründet ${uni.gruendungsjahr})`);
         }
-        console.log("===================\n");
     }
+
+    console.log(`\nStudenten (${this._studenten.length}):`);
+
+    if (this._studenten.length === 0) {
+        console.log("  Keine Studenten eingeschrieben.");
+    } else {
+        for (const student of this._studenten) {
+            console.log(
+                `  • ${student.name} | Matrikelnummer: ${student.matrikelnummer}`,
+            );
+        }
+    }
+
+    console.log("\n" + "─".repeat(46));
+}
 }

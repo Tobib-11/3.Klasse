@@ -68,9 +68,9 @@ const unistandorte = [
     "Salzburg",
 ];
 
-const anzahlAusgabe = 15;
-
 // Studiengänge erstellen
+const anzahlAusgabe = 10;
+
 for (let i = 0; i < anzahlAusgabe; i++) {
     const randomTitel =
         arrayStudienGang[Math.floor(Math.random() * arrayStudienGang.length)];
@@ -84,43 +84,45 @@ for (let i = 0; i < anzahlAusgabe; i++) {
 
 // Universitäten erstellen
 for (let i = 0; i < anzahlAusgabe; i++) {
-    // Derselbe Index sorgt dafür, dass Uni-Name und Standort zusammenpassen.
-    const randomUniIndex = Math.floor(Math.random() * universitaeten.length);
-    const randomNameUni = universitaeten[randomUniIndex];
-    const randomStandort = unistandorte[randomUniIndex];
-
-    // Zufälliges Gründungsjahr zwischen 1850 und 1999
-    const randomGruendungsjahr = Math.floor(Math.random() * 150) + 1850;
+    const randomNameUni =
+        universitaeten[Math.floor(Math.random() * universitaeten.length)];
+    const randomStandort =
+        unistandorte[Math.floor(Math.random() * unistandorte.length)];
+    const randomGruendungsjahr = Math.floor(Math.random() * 2025) + 1916;
 
     uniArr.push(
         new Uni(randomNameUni, randomStandort, randomGruendungsjahr),
     );
 }
 
-// Studenten erstellen und Studiengängen sowie Universitäten zuordnen
-for (let i = 0; i < anzahlAusgabe; i++) {
+// Jedem Studiengang genau eine Universität zuordnen
+for (const gang of studienGangArr) {
+    const zufaelligeUni = uniArr[Math.floor(Math.random() * uniArr.length)];
+    gang.addUni(zufaelligeUni);
+}
+
+// Studenten erstellen
+for (let ausgabe = 0; ausgabe < anzahlAusgabe; ausgabe++) {
     const randomMatrikelnummer = Math.floor(Math.random() * 6000) + 1;
     const randomNote = Math.floor(Math.random() * 6) + 1;
-    const randomName =
+    const randomStudent =
         arrayStudent[Math.floor(Math.random() * arrayStudent.length)];
 
     const student = new Student(
         randomMatrikelnummer,
         randomNote,
-        randomName,
+        randomStudent,
     );
-
-    studentenArr.push(student);
 
     const randomStudiengang =
         studienGangArr[Math.floor(Math.random() * studienGangArr.length)];
 
     randomStudiengang.addStudent(student);
+}
 
-    const randomUni =
-        uniArr[Math.floor(Math.random() * uniArr.length)];
-
-    randomStudiengang.addUni(randomUni);
+// Daten ausgeben
+for (const gang of studienGangArr) {
+    gang.printdata();
 }
 
 // Hauptmenü
@@ -132,7 +134,9 @@ const startAuswahl = frage(
 );
 
 if (startAuswahl === "1") {
-    console.log("\nAlle Studiengänge mit zugehörigen Universitäten und Studenten:");
+    console.log(
+        "\nAlle Studiengänge mit zugehörigen Universitäten und Studenten:",
+    );
 
     for (const gang of studienGangArr) {
         gang.printdata();
@@ -158,10 +162,12 @@ if (startAuswahl === "1") {
 
         if (treffer.length > 0) {
             console.log(`\n${treffer.length} passende Studenten gefunden.`);
-            console.log("Die zugehörigen Studiengänge werden vollständig angezeigt.");
+            console.log(
+                "Die zugehörigen Studiengänge werden vollständig angezeigt.",
+            );
 
             const passendeStudiengaenge = studienGangArr.filter((gang) =>
-                gang.studenten.some((student) => treffer.includes(student)),
+                gang.studenten.some((student) => treffer.includes(student))
             );
 
             for (const gang of passendeStudiengaenge) {
@@ -172,7 +178,7 @@ if (startAuswahl === "1") {
         }
     } else if (suchBereich === "2") {
         const treffer = studienGangArr.filter((gang) =>
-            gang.titel.toLowerCase().includes(suchBegriff),
+            gang.titel.toLowerCase().includes(suchBegriff)
         );
 
         if (treffer.length > 0) {
@@ -193,10 +199,12 @@ if (startAuswahl === "1") {
 
         if (treffer.length > 0) {
             console.log(`\n${treffer.length} passende Universitäten gefunden.`);
-            console.log("Die zugehörigen Studiengänge werden vollständig angezeigt.");
+            console.log(
+                "Die zugehörigen Studiengänge werden vollständig angezeigt.",
+            );
 
             const passendeStudiengaenge = studienGangArr.filter((gang) =>
-                gang.unis.some((uni) => treffer.includes(uni)),
+                gang.unis.some((uni) => treffer.includes(uni))
             );
 
             if (passendeStudiengaenge.length > 0) {
