@@ -1,5 +1,5 @@
 prevNum = 0
-x = range(1,11)
+x = range(0,10)
 
 for i in x:
     currNum = i + prevNum

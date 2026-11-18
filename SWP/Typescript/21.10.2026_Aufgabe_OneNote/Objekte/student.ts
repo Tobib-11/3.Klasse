@@ -9,8 +9,16 @@ export class Student {
         this._note = note;
     }
 
+    get name(): string {
+        return this._name;
+    }
+
+    get matrikelnummer(): number {
+        return this._matrikelnummer;
+    }
+
     printdata() {
-        
+        console.log("\n=== Studenten ===");
         console.log("Matrikelnummer: " + this._matrikelnummer);
         console.log("Note: " + this._note);
         console.log("Name: " + this._name);

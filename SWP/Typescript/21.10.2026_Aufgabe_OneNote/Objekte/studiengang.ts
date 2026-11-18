@@ -1,10 +1,12 @@
 import { Student } from "./student.ts";
+import { Uni } from "./uni.ts";
 
 export class StudienGang {
     private _titel: string = "";
     private _regelzeit: number = 0;
     private _abschluss: number = 0;
     private _studenten: Student[] = [];
+    private _unis: Uni[] = [];
 
     constructor(titel: string, regelzeit: number, abschluss: number) {
         this._regelzeit = regelzeit;
@@ -38,18 +40,28 @@ export class StudienGang {
     addStudent(student: Student): void {
         this._studenten.push(student);
     }
-    printdata() {
-        console.log("\n=== STUDIENGANG ==="); // Überschrift mit Abständen
-        console.log(`Titel:        ${this._titel}`);
-        console.log(`Regelzeit:    ${this._regelzeit} Semester`);
-        console.log(`Abschluss:    ${this._abschluss}`);
-        console.log("\n--- Studenten ---"); // Klare Trennung
+    addUni(uni: Uni): void {
+        this._unis.push(uni);
+    }
 
-        // Studenten mit Einrückung und Nummerierung ausgeben
-        for (let i = 0; i < this._studenten.length; i++) {
-            console.log(`\n  ${i + 1}. Student:`);
-            this._studenten[i].printdata(); // Annahme: Student.printdata() gibt Name/Note/Matr.-Nr. aus
+    printdata() {
+        console.log("\n=== STUDIENGANG ===");
+        console.log(`Titel: ${this._titel}`);
+        console.log(`Regelzeit: ${this._regelzeit} Semester`);
+        console.log(`Abschluss: ${this._abschluss}`);
+        console.log("===================\n");
+
+        // --- Unis ausgeben ---
+        console.log("\n=== Universitäten ===");
+        for (let i = 0; i < this._unis.length; i++) {
+            this._unis[i].printdata();
         }
-        console.log("\n===================\n"); // Doppelte Trennlinie für bessere Lesbarkeit
+        console.log("===================\n");
+
+        // --- Studenten ausgeben (NUR EINMAL!) ---
+        for (let i = 0; i < this._studenten.length; i++) {
+            this._studenten[i].printdata();
+        }
+        console.log("===================\n");
     }
 }
